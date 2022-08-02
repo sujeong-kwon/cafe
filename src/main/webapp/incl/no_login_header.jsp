@@ -4,7 +4,7 @@
         <div class="gnb">
           <div class="left-gnb">
             <ul>
-              <li><a href="/banking">cafe</a></li>
+              <li><a href="/cafe">cafe</a></li>
             </ul>
           </div>
         </div>

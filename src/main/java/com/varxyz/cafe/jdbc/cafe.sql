@@ -1,21 +1,24 @@
 CREATE TABLE Category(
-	cid			BIGINT			PRIMARY KEY AUTO_INCREMENT,
-	ctype		CHAR(1)			NOT NULL DEFAULT 'C',
+	cid			BIGINT,			
+	cateCode	VARCHAR(1)		PRIMARY KEY NOT NULL DEFAULT 'C',
 	regDate		TIMESTAMP		NOT NULL	DEFAULT CURRENT_TIMESTAMP 
-)AUTO_INCREMENT = 1001;
+);
 
 CREATE TABLE MenuItem(
 	mid				BIGINT		PRIMARY KEY AUTO_INCREMENT,
-	name			VARCHAR(20)		NOT NULL,
+	name			VARCHAR(20)	NOT NULL,
 	price			DOUBLE		NOT NULL DEFAULT 0.0,
 	stock			INT			NOT NULL DEFAULT 0,
-	categoryId		BIGINT		NOT NULL,
+	cateCode		VARCHAR(1)	NOT NULL DEFAULT 'C',
 	regDate			TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	
 	CONSTRAINT MenuItem_categoryId_FK
-		FOREIGN KEY(categoryId) REFERENCES Category(cid)
-)AUTO_INCREMENT = 2001;
+		FOREIGN KEY(cateCode) REFERENCES Category(cateCode)
+)AUTO_INCREMENT = 1001;
 
+insert into Category (cid, cateCode) values("1", "C");
+insert into Category (cid, cateCode) values("2", "D");
+insert into Category (cid, cateCode) values("3", "F");
 
 SELECT * FROM Category;
 
@@ -30,7 +33,8 @@ DELETE FROM Customer WHERE cid=1002;
 INSERT INTO Customer (email, passwd, name, ssn, phone)
 VALUES ("ee", "123", "ee", "ee", "ee");
 
-DROP TABLE Account;
+DROP TABLE Category;
+DROP TABLE MenuItem;
 
 SELECT * FROM Account;
 

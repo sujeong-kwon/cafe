@@ -7,13 +7,13 @@ import lombok.Setter;
 @Setter
 public class Category {
 	private long cid;
-	private char ctype;
+	private String cateCode;
 	
 	public Category() {
 		
 	}
 	
-	public Category(long cid) {
-		this.cid = cid;
+	public Category(String cateCode) {
+		this.cateCode = cateCode;
 	}
 }

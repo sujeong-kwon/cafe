@@ -48,7 +48,7 @@ section {
 <section>
 	<div class="container">
 		<h3>상품등록</h3>
-		<form:form method="post" modelAttribute="menuitem">
+		<form:form method="post" modelAttribute="menuitem" enctype="multipart/form-data">
 			<label>상품이름</label>
 			<form:input path="name" /><br>
 			<label>카테고리</label>
@@ -62,6 +62,8 @@ section {
 			<form:input path="price" /><br>
 			<label>재고</label>
 			<form:input path="stock" /><br>
+			<label>상품이미지</label>
+			<form:input type="file" path="imgFile"/><br>
 			<input type="submit" value="등록하기" />
 		</form:form>
 	</div>		
