@@ -1,38 +1,74 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib  prefix="spring" uri="http://www.springframework.org/tags" %>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/default.css'/>"/>
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/header.css'/>"/>	
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/header.css'/>"/>
 </head>
-<body>
 <style>
 body { overflow: auto; }
 
-.container{
-  width: 100%;
-  height: calc(100vh - 30px);
-}
 
 .center{
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  flex-direction: column;
-  padding-top: 150px;
-  
+  flex-wrap: wrap;
 }
+
+.img{
+  display: block;
+  margin: auto;
+  width: 50%;
+  height: auto;
+}
+
+.container .gallery {
+  width: 25%;
+  box-sizing: border-box;
+}
+
+div.gallery img {
+  /* position: center; not valid */
+  object-fit: cover;
+}
+
+div.desc {
+  padding: 0px;
+  text-align: center;
+}
+
 </style>
+<body>
 <header>
-    <%@ include file="/incl/header.jsp" %>
+	<%@ include file="/incl/header.jsp" %>
 </header>
-<div class="container">
-      <div class="center">
-		    
+<section>
+	<div class="container">
+		<h3>주문하기</h3>
+		<div class="center">
+		    <c:forEach var="item" items="${menuitem}">
+		    <!-- 
+		     <div class="card">
+			  	<div class="text-wrap">
+			  	  <h2 class="type">${item.mname}</h2>
+			  	  <h4 class="num">${item.price}</h4>
+			      <h1 class="balance">${item.stock}</h1>
+			      <img src="<spring:url value='/resources/img/${item.image_url}'/>" class="img">
+			  	</div>
+			  </div>
+		     -->			  
+			  <div class="gallery">
+			      <img src="<spring:url value='/resources/img/${item.image_url}'/>">
+			    <div class="desc">${item.mname}/${item.price}/${item.stock}</div>
+			  </div>
+			 </c:forEach>
 		</div>
-    </div>
+	</div>		
+</section>
 </body>
 </html>

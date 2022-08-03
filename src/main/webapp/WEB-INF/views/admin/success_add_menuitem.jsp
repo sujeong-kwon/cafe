@@ -48,8 +48,8 @@ section {
 <section>
 	<div class="container">
 		<h3>상품이 등록되었습니다.</h3>
-		<label>상품이름</label> : ${menuitem.name}<br>
-		<label>카테고리</label> : ${menuitem.category.cateCode}<br>
+		<label>상품이름</label> : ${menuitem.mname}<br>
+		<label>카테고리</label> : ${menuitem.category}<br>
 		<label>상품가격</label> : ${menuitem.price}<br>
 		<label>재고</label> : ${menuitem.stock}
 	</div>		

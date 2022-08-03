@@ -1,9 +1,11 @@
 package com.varxyz.cafe.web;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -38,32 +40,40 @@ public class AddMenuItemController {
 	@ModelAttribute("categoryProviderList")
 	public List<CategoryProvider> getCategoryProviderList(){
 		List<CategoryProvider> list = new ArrayList<CategoryProvider>();
-		list.add(new CategoryProvider("커피", "C"));
-		list.add(new CategoryProvider("음료", "D"));
-		list.add(new CategoryProvider("빽스치노", "F"));
+		list.add(new CategoryProvider("커피", "1"));
+		list.add(new CategoryProvider("음료", "2"));
+		list.add(new CategoryProvider("빽스치노", "3"));
 		
 		return list;
 	}
 	
 	@PostMapping
-	public String addMenuItem(@ModelAttribute("menuitem") MenuItemCommand menuitem, Model model) throws Exception, IOException {
-//		String cateCode = menuitem.getCategory().getCateCode();
-//		menuitem.setCategory(new Category(cateCode));
+	public String addMenuItem(@ModelAttribute("menuitem") MenuItemCommand menuitem, HttpServletRequest request, Model model) throws Exception, IOException {
+//		String categoryId = request.getParameter("category");
+//		menuitem.setCategory(new Category(categoryId));
+		System.out.println(menuitem.getMname());
 		MultipartFile imgFile = menuitem.getImgFile();
-		System.out.println(imgFile.getOriginalFilename());
-		String filePath = "C:\\ncs\\cafe\\cafe\\src\\main\\webapp\\resources\\img";
-		try {
-			byte fileData[] = imgFile.getBytes();
-			fos = new FileOutputStream(filePath + imgFile.getOriginalFilename());
-			fos.write(fileData);
-			System.out.println(fos);
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally {
-			if(fos != null) {
-				fos.close();
-			}
-		}
+		String uploadFileName = imgFile.getOriginalFilename();
+		System.out.println(uploadFileName);
+		UUID uuid = UUID.randomUUID();
+		uploadFileName = uuid.toString() + "_" + uploadFileName;
+		String filePath = "C:\\ncs\\cafe\\cafe\\src\\main\\webapp\\resources\\img\\";
+		String fullPath = filePath + uploadFileName;
+		System.out.println(fullPath);
+		menuitem.getImgFile().transferTo(new File(fullPath));
+		menuitem.setImage_url(uploadFileName);
+//		try {
+//			byte fileData[] = imgFile.getBytes();
+//			fos = new FileOutputStream(filePath + imgFile.getOriginalFilename());
+//			fos.write(fileData);
+//			System.out.println(fos);
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}finally {
+//			if(fos != null) {
+//				fos.close();
+//			}
+//		}
 		menuItemService.addMenuItem(menuitem);
 		model.addAttribute("menuitem", menuitem);
 		return "admin/success_add_menuitem";

@@ -2,18 +2,20 @@ package com.varxyz.cafe.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class Category {
-	private long cid;
-	private String cateCode;
+	private String cid;
+	private String name;
 	
 	public Category() {
 		
 	}
 	
-	public Category(String cateCode) {
-		this.cateCode = cateCode;
+	public Category(String cid) {
+		this.cid = cid;
 	}
 }

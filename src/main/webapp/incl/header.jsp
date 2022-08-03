@@ -9,7 +9,7 @@
       </div>
       <div class="right-gnb">
         <ul>
-          <li><a href="/banking/account/add_account">주문하기</a></li>
+          <li><a href="/cafe/customer/order_menuitem">주문하기</a></li>
           <li><a href="/cafe/admin/add_menuitem">관리자</a></li>
         </ul>
       </div>

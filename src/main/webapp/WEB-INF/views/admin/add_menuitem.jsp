@@ -50,7 +50,7 @@ section {
 		<h3>상품등록</h3>
 		<form:form method="post" modelAttribute="menuitem" enctype="multipart/form-data">
 			<label>상품이름</label>
-			<form:input path="name" /><br>
+			<form:input path="mname" /><br>
 			<label>카테고리</label>
 			<form:select path="category">
 				<option value="unknown">--선택--</option>
