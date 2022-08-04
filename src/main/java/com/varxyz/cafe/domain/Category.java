@@ -8,14 +8,14 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Category {
-	private String cid;
+	private long cid;
 	private String name;
 	
 	public Category() {
 		
 	}
 	
-	public Category(String cid) {
+	public Category(long cid) {
 		this.cid = cid;
 	}
 }

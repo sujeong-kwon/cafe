@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,15 +27,24 @@ public class HomeController {
 	@Autowired
 	private MenuItemService menuItemService;
 	
-	long categoryId=1;
+//	long categoryId=1;
 	
 	@GetMapping
 	public ModelAndView orderMenuItenForm(ModelAndView mav) {
 		List<MenuItem> menuitem = new ArrayList<MenuItem>();
-		menuitem = menuItemService.getMenuItemsByCategoryId(categoryId);
+		menuitem = menuItemService.getMenuItems();
 		mav.addObject("menuitem", menuitem);
 		mav.setViewName("home");
 		return mav;
+	}
+	
+	@PostMapping
+	public String orderMenuIten(ModelAndView mav) {
+//		List<MenuItem> menuitem = new ArrayList<MenuItem>();
+//		menuitem = menuItemService.getMenuItems();
+//		mav.addObject("menuitem", menuitem);
+//		mav.setViewName("home");
+		return "redirect:/";
 	}
 	
 }

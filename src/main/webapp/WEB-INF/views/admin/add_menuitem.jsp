@@ -52,7 +52,7 @@ section {
 			<label>상품이름</label>
 			<form:input path="mname" /><br>
 			<label>카테고리</label>
-			<form:select path="category">
+			<form:select path="categoryId">
 				<option value="unknown">--선택--</option>
 				<form:options itemValue="categoryHost"
 				 			  itemLabel="categoryCode"

@@ -49,8 +49,10 @@ public class AddMenuItemController {
 	
 	@PostMapping
 	public String addMenuItem(@ModelAttribute("menuitem") MenuItemCommand menuitem, HttpServletRequest request, Model model) throws Exception, IOException {
-//		String categoryId = request.getParameter("category");
+		String categoryId = request.getParameter("categoryId");
+		long categoryId_long = Long.parseLong(categoryId);
 //		menuitem.setCategory(new Category(categoryId));
+		menuitem.setCategoryId(categoryId_long);
 		System.out.println(menuitem.getMname());
 		MultipartFile imgFile = menuitem.getImgFile();
 		String uploadFileName = imgFile.getOriginalFilename();
@@ -61,7 +63,7 @@ public class AddMenuItemController {
 		String fullPath = filePath + uploadFileName;
 		System.out.println(fullPath);
 		menuitem.getImgFile().transferTo(new File(fullPath));
-		menuitem.setImage_url(uploadFileName);
+		menuitem.setImage(uploadFileName);
 //		try {
 //			byte fileData[] = imgFile.getBytes();
 //			fos = new FileOutputStream(filePath + imgFile.getOriginalFilename());

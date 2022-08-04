@@ -10,7 +10,7 @@ CREATE TABLE MenuItem(
 	price			DOUBLE			NOT NULL DEFAULT 0.0,
 	stock			INT				NOT NULL DEFAULT 0,
 	categoryId		BIGINT			NOT NULL,
-	image_url		VARCHAR(200)	NOT NULL,
+	image			VARCHAR(200)	NOT NULL,
 	regDate			TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	
 	CONSTRAINT MenuItem_categoryId_FK
@@ -31,3 +31,5 @@ SELECT * FROM MenuItem;
 delete from menuitem;
 
 SELECT c.cid, c.name, m.mid, m.name, m.price, m.stock, m.categoryId, m.image_url FROM Category c INNER JOIN MenuItem m ON c.cid = m.categoryId WHERE m.categoryId = 1;
+
+SELECT mid, mname, price, stock, categoryId, image FROM MenuItem;
