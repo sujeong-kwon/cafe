@@ -17,6 +17,15 @@ CREATE TABLE MenuItem(
 		FOREIGN KEY(categoryId) REFERENCES Category(cid)
 )AUTO_INCREMENT = 1001;
 
+create table Cart(
+    cartId  		BIGINT 	PRIMARY KEY AUTO_INCREMENT,
+    menuItemId		BIGINT,
+    menuItemCount 	INT	,
+    
+    CONSTRAINT Cart_menuItemId_FK
+		FOREIGN KEY(menuItemId) REFERENCES MenuItem(mid)
+);
+
 drop table category;
 drop table menuitem;
 
@@ -27,6 +36,8 @@ insert into Category (cname) values("프라푸치노");
 SELECT * FROM Category;
 
 SELECT * FROM MenuItem;
+
+SELECT * FROM Cart;
 
 delete from menuitem;
 

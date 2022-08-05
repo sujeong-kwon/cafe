@@ -25,22 +25,57 @@ import com.varxyz.cafe.service.CategoryService;
 import com.varxyz.cafe.service.MenuItemService;
 
 @Controller
-@RequestMapping("/")
-public class HomeController {
+public class OrderController {
 	
 	@Autowired
 	private MenuItemService menuItemService;
 	@Autowired
 	private CategoryService categoryService;
-	
-	@GetMapping
-	public ModelAndView orderMenuItemForm(ModelAndView mav, HttpServletRequest request) {
-		List<MenuItem> menuitem = new ArrayList<MenuItem>();
-		menuitem = menuItemService.getMenuItems();
+
+	@GetMapping("/order/category")
+	public ModelAndView orderCategoryForm(ModelAndView mav, HttpServletRequest request) {
+		String cid = request.getParameter("cid");
+		long cid_long = Long.parseLong(cid);
+		System.out.println(cid_long);
+		
 		List<Category> category = new ArrayList<Category>();
 		category = categoryService.getCategorys();
-		mav.addObject("category",category);
+		mav.addObject("category", category);
+		
+		List<MenuItem> menuitem = new ArrayList<MenuItem>();
+		menuitem = menuItemService.getMenuItemsByCid(cid_long);
 		mav.addObject("menuitem", menuitem);
+//		String mid = request.getParameter("mid");
+//		long mid_long = Long.parseLong(mid);
+//		System.out.println(mid_long);
+//		MenuItem menuitem_modal = new MenuItem();
+//		menuitem_modal = menuItemService.getMenuItemByMid(mid_long);
+//		System.out.println(menuitem_modal.getMname());
+		
+//		mav.addObject("menuitem_modal", menuitem_modal);
+		mav.setViewName("home");
+		return mav;
+	}
+	
+	@GetMapping("/order/category/menu")
+	public ModelAndView orderMenuItemForm(ModelAndView mav, HttpServletRequest request) {
+		List<Category> category = new ArrayList<Category>();
+		category = categoryService.getCategorys();
+		mav.addObject("category", category);
+		String cid = request.getParameter("cid");
+		long cid_long = Long.parseLong(cid);
+		System.out.println(cid_long);
+//		List<MenuItem> menuitem = new ArrayList<MenuItem>();
+//		menuitem = menuItemService.getMenuItemsByCid(cid_long);
+//		mav.addObject("menuitem", menuitem);
+		String mid = request.getParameter("mid");
+		long mid_long = Long.parseLong(mid);
+		System.out.println(mid_long);
+		MenuItem menuitem_modal = new MenuItem();
+		menuitem_modal = menuItemService.getMenuItemByMid(mid_long);
+		System.out.println(menuitem_modal.getMname());
+		
+		mav.addObject("menuitem_modal", menuitem_modal);
 		mav.setViewName("home");
 		return mav;
 	}

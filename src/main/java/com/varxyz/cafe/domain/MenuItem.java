@@ -17,6 +17,7 @@ public class MenuItem {
 	private double price;
 	private int stock;
 	private long categoryId;
+	private long cid;
 	private Category category;
 	private MultipartFile imgFile;
 	private String image;

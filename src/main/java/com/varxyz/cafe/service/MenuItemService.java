@@ -23,7 +23,11 @@ public class MenuItemService {
 		return menuItemDao.findMenuItems();
 	}
 
-	public List<MenuItem> getMenuItemsByCategoryId(long categoryId) {	
-		return menuItemDao.findMenuItemsByCategoryId(categoryId);
+	public List<MenuItem> getMenuItemsByCid(long cid) {	
+		return menuItemDao.findMenuItemsByCid(cid);
+	}
+
+	public MenuItem getMenuItemByMid(long mid) {
+		return menuItemDao.findMenuItemByMid(mid);
 	}
 }

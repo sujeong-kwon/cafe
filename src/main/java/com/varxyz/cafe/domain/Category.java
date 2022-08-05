@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class Category {
 	private long cid;
-	private String name;
+	private String cname;
 	
 	public Category() {
 		
