@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib  prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,7 @@ section{
 
 .tab{
   float: left;
-  width: 75%
+  width: 100%
 }
 
 .tabcontent{
@@ -188,46 +189,59 @@ button.btn-inner {
 	<%@ include file="/incl/header.jsp" %>
 </header>
 <section>
-	<c:if test="${!empty menuitem_modal}">
-			<div id="popup" onclick="javascript:doDisplay();">
-			      <div id="popmenu">
-					  <img class="popup_img" src="<spring:url value='/resources/img/${menuitem_modal.image}'/>">
-			          <div class="desc">${menuitem_modal.mname}</div>
-			          <div class="desc">${menuitem_modal.price}</div>
-			          <form action="cart" method="post">
-			          	<input type="text" name="menuItemCount" placeholder="수량">
-			          </form>		          
-			          <div class="btn-group">
-			            <div class="i-btn">
-			              <div class="btn" onclick="javascript:donotDisplay();">
-			                <button class="btn-inner">취소</button>
-			              </div>
-			              <div class="btn" onclick="javascript:donotDisplay();">
-			                <a type="submit" class="in-btn">선택완료</a>
-			              </div>
-			            </div>
-			          </div>
-			      </div>
-			</div>
-	</c:if>
+	<div id="popup">
+       <div id="popmenu">
+           <div class="gallery">
+		      <img class="contents" src="<spring:url value='/resources/img/${item.image}'/>">
+		    <div class="desc">${item.mname}/${item.price}/${item.stock}</div>
+		  </div>
+           <div class="exit">취소</div>
+           <div class="exit">선택완료</div>
+       </div>
+	</div>
 	<div class="tab">
 		<ul class="tabnav">
-			<c:forEach var="cate" items="${category}">
-				<li><a href="/cafe/order/category?cid=${cate.cid}">${cate.cname}</a></li>
-			</c:forEach>
+			<li><a href="#tab01">커피</a></li>
+			<li><a href="#tab02">음료</a></li>
+			<li><a href="#tab03">빽스치노</a></li>
 		</ul>
 		<div class="tabcontent">
 			<div id="tab01" class="center">	
-				<c:forEach var="item" items="${menuitem}">	  
-					  <div class="gallery" onclick="javascript:sendPost('<c:url value='/order/category/menu'/>');">
+				<c:forEach var="item" items="${menuitem}">	
+					<c:if test="${item.categoryId eq 1}">	  
+					  <div class="gallery" onclick="javascript:sendPost('<c:url value='/cart'/>', ${item.mid} );">
 					      <img class="contents" src="<spring:url value='/resources/img/${item.image}'/>">
-					    <div class="desc">${item.mname}</div>
-					    <div class="desc">${item.price}</div>
+					      <div class="desc">${item.mname}</div>
+					      <div class="desc"><fmt:formatNumber value="${item.price}" pattern="###,###,###"/>원</div>
 					  </div>
+				 	</c:if>	
 				 </c:forEach>							 
-			</div>  	
+			</div>
+			<div id="tab02" class="center">
+				 <c:forEach var="item" items="${menuitem}">	
+						<c:if test="${item.categoryId eq 2}">  
+						  <div class="gallery" onclick="javascript:sendPost('<c:url value='/cart'/>', ${item.mid} );">
+						      <img class="contents" src="<spring:url value='/resources/img/${item.image}'/>">
+						      <div class="desc">${item.mname}</div>
+					          <div class="desc"><fmt:formatNumber value="${item.price}" pattern="###,###,###"/>원</div>
+						  </div>
+					 	</c:if>	
+				 </c:forEach>	
+			</div>
+			<div id="tab03" class="center">
+				 <c:forEach var="item" items="${menuitem}">	
+						<c:if test="${item.categoryId eq 3}">	  
+						  <div class="gallery" onclick="javascript:sendPost('<c:url value='/cart'/>', ${item.mid} );">
+						      <img class="contents" src="<spring:url value='/resources/img/${item.image}'/>">
+						      <div class="desc">${item.mname}</div>
+					          <div class="desc"><fmt:formatNumber value="${item.price}" pattern="###,###,###"/>원</div>
+						  </div>
+					 	</c:if>
+				 </c:forEach>	
+			</div>	   	
 		</div>
-	</div>		
+	</div>
+	<!--
 	<div class="order">
 		<h2>주문내역</h2>
 		<table style="width:100%">
@@ -247,13 +261,14 @@ button.btn-inner {
 		        <td>2500원</td>
 		    </tr>
 		</table>
-	</div>
+	</div> 
+	-->		
 </section>
 </body>
 ﻿<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
-	function sendPost(url, param, param2) {
+	function sendPost(url, param) {
 	    console.log(url)
 	    var form = document.createElement('form');
 	    form.setAttribute('method', 'get');
@@ -262,28 +277,22 @@ button.btn-inner {
 	    
 	    var hiddenField = document.createElement('input');
 	    hiddenField.setAttribute('type', 'hidden');
-	    hiddenField.setAttribute('name', "cid");
+	    hiddenField.setAttribute('name', "mid");
 	    hiddenField.setAttribute('value', param);
 	    form.appendChild(hiddenField);
-	    
-	    var hiddenField2 = document.createElement('input');
-	    hiddenField2.setAttribute('type', 'hidden');
-	    hiddenField2.setAttribute('name', "mid");
-	    hiddenField2.setAttribute('value', param);
-	    form.appendChild(hiddenField2);
 	    
 	    document.body.appendChild(form);   
 	    form.submit();
 	}
 	
-	var popup = document.getElementById("popup"); 	
-    popup.style.display = 'block'; 	
-	
-	var bDisplay = true; 
-	function donotDisplay(){ 	
-        var popup = document.getElementById("popup"); 		
-        popup.style.display = 'none'; 	
-    }
-	
+	$(function(){
+		  $('.tabcontent > div').hide();
+		  $('.tabnav a').click(function () {
+		    $('.tabcontent > div').hide().filter(this.hash).fadeIn();
+		    $('.tabnav a').removeClass('active');
+		    $(this).addClass('active');
+		    return false;
+		  }).filter(':eq(0)').click();
+	});
 </script>
 </html>

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.varxyz.cafe.repository.CartDao;
 import com.varxyz.cafe.repository.CategoryDao;
 import com.varxyz.cafe.repository.MenuItemDao;
 
@@ -35,7 +36,10 @@ public class DataSourceConfig {
 	}
 	
 	 @Bean 
-	 public CategoryDao categoryDao() { return new CategoryDao(dataSource()); 
+	 public CategoryDao categoryDao() { return new CategoryDao(dataSource());
+	 }
 	 
-	}
+	 @Bean 
+	 public CartDao cartDao() { return new CartDao(dataSource()); 
+	 }
 }

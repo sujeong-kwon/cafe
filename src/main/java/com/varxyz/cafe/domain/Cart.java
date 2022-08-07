@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class Cart {
 	private long cartId;
-	private int menuItemCount;
+	private int amount;
 	private long menuItemId;
 	private MenuItem menuitem;
 }

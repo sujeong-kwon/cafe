@@ -19,12 +19,14 @@ CREATE TABLE MenuItem(
 
 create table Cart(
     cartId  		BIGINT 	PRIMARY KEY AUTO_INCREMENT,
-    menuItemId		BIGINT,
-    menuItemCount 	INT	,
+    amount 			INT		NOT NULL DEFAULT 0,
+    menuItemId		BIGINT  NOT NULL,
     
     CONSTRAINT Cart_menuItemId_FK
 		FOREIGN KEY(menuItemId) REFERENCES MenuItem(mid)
 );
+
+SELECT c.cartId, c.amount, c.menuItemId, m.mid, m.mname, m.price, m.stock, m.categoryId FROM Cart c INNER JOIN MenuItem m ON m.mid = c.menuItemId;
 
 drop table category;
 drop table menuitem;
@@ -41,6 +43,10 @@ SELECT * FROM Cart;
 
 delete from menuitem;
 
+delete from Cart;
+
 SELECT c.cid, c.name, m.mid, m.name, m.price, m.stock, m.categoryId, m.image_url FROM Category c INNER JOIN MenuItem m ON c.cid = m.categoryId WHERE m.categoryId = 1;
 
 SELECT mid, mname, price, stock, categoryId, image FROM MenuItem;
+
+SELECT COUNT(*) FROM Cart menuItemId WHERE menuItemId=1001;
