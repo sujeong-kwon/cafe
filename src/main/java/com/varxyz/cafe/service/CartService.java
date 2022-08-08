@@ -15,7 +15,7 @@ public class CartService {
 	@Autowired
 	private CartDao cartDao;
 	
-	public CartCommand findCart(long mid_long) {
+	public Cart findCart(long mid_long) {
 		return cartDao.findCart(mid_long);
 	}
 	
@@ -25,13 +25,12 @@ public class CartService {
 	}
 
 	// 장바구니 추가
-	public void insertCart(CartCommand cart) {
+	public void insertCart(Cart cart) {
 		cartDao.insertCart(cart);
-		
 	}
 	
 	// 장바구니 수량 변경
-	public void updateCart(CartCommand cart) {
+	public void updateCart(Cart cart) {
 		cartDao.updateCountCart(cart);
 		
 	}

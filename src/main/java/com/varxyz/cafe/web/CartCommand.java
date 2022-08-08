@@ -13,11 +13,4 @@ public class CartCommand {
 	private double price;
 	private int stock;
 	private long categoryId;
-	
-    public int plus(int plus){
-    	System.out.println("amount : "+amount);
-    	System.out.println("plus : "+plus);
-		return amount = amount + plus;
-    }
- 
 }

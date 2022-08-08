@@ -52,20 +52,21 @@ public class CartController {
 	}
 	
 	@PostMapping("/cart/insert")
-	public String cartMenuItem(@ModelAttribute("cart") CartCommand cart, HttpServletRequest request, Model model) {
+	public String cartMenuItem(HttpServletRequest request, Model model) {
 		String mid = request.getParameter("menuitemId");
 		long mid_long = Long.parseLong(mid);
-//		String amount = request.getParameter("amount");
-//		int amount_int = Integer.parseInt(amount);
+		String amount = request.getParameter("amount");
+		int amount_int = Integer.parseInt(amount);
 		Cart cart = new Cart();
-		
-		cart.setMenuItemId(mid_long);
+		cart.setMenuItemId(mid_long);	
 		int count = cartService.countCart(mid_long);
 		if(count == 0) {
-			cart = cartService.insertCart(cart);
+			cart.setAmount(amount_int);
+			cartService.insertCart(cart);
 		}else {
-			System.out.println(cart.getAmount());
-			int amount_result = cart.plus(cart.getAmount());
+			Cart cartDao = cartService.findCart(mid_long);
+			cart.setAmount(cartDao.getAmount());
+			int amount_result = cart.plus(amount_int);
 			cart.setAmount(amount_result);
 			cartService.updateCart(cart);
 		}

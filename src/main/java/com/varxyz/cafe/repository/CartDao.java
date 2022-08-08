@@ -24,10 +24,10 @@ public class CartDao {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
-	public CartCommand findCart(long mid_long) {
+	public Cart findCart(long mid_long) {
 		String sql = "SELECT * FROM Cart menuItemId WHERE menuItemId=?";
-		CartCommand cart = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<CartCommand>(CartCommand.class){
-		});
+		Cart cart = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Cart>(Cart.class){
+		}, mid_long);
 		return cart;
 	}
 	
@@ -36,14 +36,14 @@ public class CartDao {
 		return jdbcTemplate.queryForObject(sql, Integer.class, mid_long);
 	}
 
-	public void insertCart(CartCommand cart) {
+	public void insertCart(Cart cart) {
 		String sql = "INSERT INTO Cart (amount, menuItemId)"
 				+ " VALUES (?, ?)";
 		jdbcTemplate.update(sql, cart.getAmount(), cart.getMenuItemId());
 		System.out.println("inserted");
 	}
 
-	public void updateCountCart(CartCommand cart) {
+	public void updateCountCart(Cart cart) {
 		String sql = "UPDATE Cart SET amount=? WHERE menuItemId=?";
 		Object[] args = null;
 		cart.getAmount();
