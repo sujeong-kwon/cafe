@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.varxyz.cafe.domain.Cart;
 import com.varxyz.cafe.repository.CartDao;
 import com.varxyz.cafe.web.CartCommand;
 
@@ -13,6 +14,10 @@ public class CartService {
 	
 	@Autowired
 	private CartDao cartDao;
+	
+	public CartCommand findCart(long mid_long) {
+		return cartDao.findCart(mid_long);
+	}
 	
 	// 장바구니 상품 확인
 	public int countCart(long mid_long) {

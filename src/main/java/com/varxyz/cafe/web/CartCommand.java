@@ -14,12 +14,10 @@ public class CartCommand {
 	private int stock;
 	private long categoryId;
 	
-    public int plus(){
-    	amount += amount;
-		return amount;
+    public int plus(int plus){
+    	System.out.println("amount : "+amount);
+    	System.out.println("plus : "+plus);
+		return amount = amount + plus;
     }
-    
-    public double total_price() {
-    	return amount * price;
-    }
+ 
 }

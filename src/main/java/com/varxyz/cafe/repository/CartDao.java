@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.varxyz.cafe.domain.Cart;
 import com.varxyz.cafe.domain.Category;
 import com.varxyz.cafe.web.CartCommand;
 
@@ -21,6 +22,13 @@ public class CartDao {
 	@Autowired
 	public CartDao(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+	
+	public CartCommand findCart(long mid_long) {
+		String sql = "SELECT * FROM Cart menuItemId WHERE menuItemId=?";
+		CartCommand cart = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<CartCommand>(CartCommand.class){
+		});
+		return cart;
 	}
 	
 	public int findCountCart(long mid_long) {
@@ -37,12 +45,18 @@ public class CartDao {
 
 	public void updateCountCart(CartCommand cart) {
 		String sql = "UPDATE Cart SET amount=? WHERE menuItemId=?";
-		jdbcTemplate.update(sql, cart.getAmount(), cart.getMenuItemId());
+		Object[] args = null;
+		cart.getAmount();
+		cart.getMenuItemId();
+		args = new Object[] {
+				cart.getAmount(),
+				cart.getMenuItemId()
+		};
+		jdbcTemplate.update(sql, args);
 		System.out.println("updated");
 	}
 
 	public List<CartCommand> listCart() {
-		System.out.println("리스트 진입");
 		String sql = "SELECT c.cartId, c.amount, c.menuItemId, m.mid, m.mname, m.price, m.stock, m.categoryId FROM Cart c INNER JOIN MenuItem m ON m.mid = c.menuItemId";
 		List<CartCommand> cart = jdbcTemplate.query(sql, new BeanPropertyRowMapper<CartCommand>(CartCommand.class){
 		});

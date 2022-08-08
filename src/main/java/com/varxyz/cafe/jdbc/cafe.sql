@@ -30,6 +30,7 @@ SELECT c.cartId, c.amount, c.menuItemId, m.mid, m.mname, m.price, m.stock, m.cat
 
 drop table category;
 drop table menuitem;
+drop table cart;
 
 insert into Category (cname) values("커피");
 insert into Category (cname) values("음료");

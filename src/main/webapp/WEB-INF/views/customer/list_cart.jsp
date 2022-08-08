@@ -77,11 +77,11 @@ section {
 								<fmt:formatNumber value="${row.price}" pattern="###,###,###"/>원
 							</td>
 							<td>
-								<input type="number" style="width: 40px" name="amount" value="${row.amount}" min="1">
+								<input type="number" style="width: 40px" name="amount" value="${row.amount}">
 								<input type="hidden" name="menuitemId" value="${row.menuItemId}">
 							</td>
 							<td style="width: 100px" align="right">
-								<fmt:formatNumber value="${row.price}" pattern="###,###,###"/>원
+								<fmt:formatNumber value="${row.price*row.amount}" pattern="###,###,###"/>원
 							</td>
 							<td style="width: 100px" align="right">
 								<a>삭제</a>

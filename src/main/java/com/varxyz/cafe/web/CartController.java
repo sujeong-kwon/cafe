@@ -44,8 +44,6 @@ public class CartController {
 	@GetMapping("/cart/list")
 	public ModelAndView orderCartList(@ModelAttribute("cart") CartCommand cart, @ModelAttribute("menuitem") MenuItemCommand menuitem, ModelAndView mav, HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
-//		System.out.println("dd"+cart.getAmount());
-		cart.setPrice(cart.total_price());
 		List<CartCommand> list = cartService.listCart();
 		map.put("list", list);
 		mav.addObject("map", map);
@@ -59,14 +57,15 @@ public class CartController {
 		long mid_long = Long.parseLong(mid);
 //		String amount = request.getParameter("amount");
 //		int amount_int = Integer.parseInt(amount);
+		Cart cart = new Cart();
 		
 		cart.setMenuItemId(mid_long);
 		int count = cartService.countCart(mid_long);
 		if(count == 0) {
-			cartService.insertCart(cart);
+			cart = cartService.insertCart(cart);
 		}else {
 			System.out.println(cart.getAmount());
-			int amount_result = cart.plus();
+			int amount_result = cart.plus(cart.getAmount());
 			cart.setAmount(amount_result);
 			cartService.updateCart(cart);
 		}
