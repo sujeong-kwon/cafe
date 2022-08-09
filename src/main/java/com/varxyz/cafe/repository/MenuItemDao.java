@@ -46,4 +46,17 @@ public class MenuItemDao {
 		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<MenuItem>(MenuItem.class){
 		}, mid);
 	}
+
+	public void updateStock(MenuItem menuitem) {
+		String sql = "UPDATE MenuItem SET stock=? WHERE mid=?";
+		Object[] args = null;
+		menuitem.getStock();
+		menuitem.getMid();
+		args = new Object[] {
+				menuitem.getStock(),
+				menuitem.getMid()
+		};
+		jdbcTemplate.update(sql, args);
+		System.out.println("updated");
+	}
 }

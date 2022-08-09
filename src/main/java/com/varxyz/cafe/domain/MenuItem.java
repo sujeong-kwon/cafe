@@ -21,4 +21,8 @@ public class MenuItem {
 	private Category category;
 	private MultipartFile imgFile;
 	private String image;
+	
+	public int minus(int minus) {
+		return stock -= minus;
+	}
 }

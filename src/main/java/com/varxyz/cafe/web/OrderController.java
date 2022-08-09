@@ -44,27 +44,4 @@ public class OrderController {
 		mav.setViewName("customer/cart");
 		return mav;
 	}
-	
-	@GetMapping("/order/category/menu")
-	public ModelAndView orderMenuItemForm(ModelAndView mav, HttpServletRequest request) {
-		List<Category> category = new ArrayList<Category>();
-		category = categoryService.getCategorys();
-		mav.addObject("category", category);
-		String cid = request.getParameter("cid");
-		long cid_long = Long.parseLong(cid);
-		System.out.println(cid_long);
-//		List<MenuItem> menuitem = new ArrayList<MenuItem>();
-//		menuitem = menuItemService.getMenuItemsByCid(cid_long);
-//		mav.addObject("menuitem", menuitem);
-		String mid = request.getParameter("mid");
-		long mid_long = Long.parseLong(mid);
-		System.out.println(mid_long);
-		MenuItem menuitem_modal = new MenuItem();
-		menuitem_modal = menuItemService.getMenuItemByMid(mid_long);
-		System.out.println(menuitem_modal.getMname());
-		
-		mav.addObject("menuitem_modal", menuitem_modal);
-		mav.setViewName("home");
-		return mav;
-	}
 }

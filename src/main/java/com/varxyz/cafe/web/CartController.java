@@ -58,16 +58,30 @@ public class CartController {
 		String amount = request.getParameter("amount");
 		int amount_int = Integer.parseInt(amount);
 		Cart cart = new Cart();
-		cart.setMenuItemId(mid_long);	
+		MenuItem menuitem = new MenuItem();
+		cart.setMenuItemId(mid_long);
+		menuitem.setMid(mid_long);
 		int count = cartService.countCart(mid_long);
 		if(count == 0) {
 			cart.setAmount(amount_int);
 			cartService.insertCart(cart);
+			MenuItem menuitemDao = menuItemService.getMenuItemByMid(mid_long);
+			menuitem.setStock(menuitemDao.getStock());
+			int stock_result = menuitem.minus(amount_int);
+			menuitem.setStock(stock_result);
+			System.out.println("재고" + stock_result);
+			menuItemService.updateStock(menuitem);
 		}else {
 			Cart cartDao = cartService.findCart(mid_long);
 			cart.setAmount(cartDao.getAmount());
+			MenuItem menuitemDao = menuItemService.getMenuItemByMid(mid_long);
+			menuitem.setStock(menuitemDao.getStock());
 			int amount_result = cart.plus(amount_int);
 			cart.setAmount(amount_result);
+			int stock_result = menuitem.minus(amount_result);
+			menuitem.setStock(stock_result);
+			System.out.println("재고" + stock_result);
+			menuItemService.updateStock(menuitem);
 			cartService.updateCart(cart);
 		}
 		return "redirect:/";

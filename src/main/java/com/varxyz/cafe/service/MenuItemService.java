@@ -30,4 +30,9 @@ public class MenuItemService {
 	public MenuItem getMenuItemByMid(long mid) {
 		return menuItemDao.findMenuItemByMid(mid);
 	}
+
+	public void updateStock(MenuItem menuitem) {
+		menuItemDao.updateStock(menuitem);
+		
+	}
 }

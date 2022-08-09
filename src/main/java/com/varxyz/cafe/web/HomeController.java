@@ -44,23 +44,4 @@ public class HomeController {
 		mav.setViewName("home");
 		return mav;
 	}
-	
-//	@PostMapping
-//	public ModelAndView orderMenuItem(ModelAndView mav, HttpServletRequest request) {
-//		List<MenuItem> menuitem = new ArrayList<MenuItem>();
-//		menuitem = menuItemService.getMenuItems();
-//		mav.addObject("menuitem", menuitem);
-//		
-//		String mid = request.getParameter("mid");
-//		long mid_long = Long.parseLong(mid);
-//		System.out.println(mid_long);
-//		MenuItem menuitem_modal = new MenuItem();
-//		menuitem_modal = menuItemService.getMenuItemByMid(mid_long);
-//		System.out.println(menuitem_modal.getMname());
-//		
-//		mav.addObject("menuitem_modal", menuitem_modal);
-//		mav.setViewName("home");
-//		return mav;
-//	}
-//	
 }

@@ -59,8 +59,8 @@ public class AddMenuItemController {
 		System.out.println(uploadFileName);
 		UUID uuid = UUID.randomUUID();
 		uploadFileName = uuid.toString() + "_" + uploadFileName;
-//		String filePath = "C:\\ncs\\cafe\\cafe\\src\\main\\webapp\\resources\\img\\";
-		String filePath = "C:\\back_work\\cafe\\src\\main\\webapp\\resources\\img\\";
+		String filePath = "C:\\ncs\\cafe\\cafe\\src\\main\\webapp\\resources\\img\\";
+//		String filePath = "C:\\back_work\\cafe\\src\\main\\webapp\\resources\\img\\";
 		String fullPath = filePath + uploadFileName;
 		System.out.println(fullPath);
 		menuitem.getImgFile().transferTo(new File(fullPath));
